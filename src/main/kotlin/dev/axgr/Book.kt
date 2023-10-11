@@ -1,0 +1,33 @@
+package dev.axgr
+
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Id
+import jakarta.persistence.Table
+import org.hibernate.Hibernate
+import java.math.BigDecimal
+import java.util.UUID
+
+@Entity
+@Table(name = "books")
+class Book {
+
+  @Id
+  @GeneratedValue
+  val id: UUID? = null
+
+  lateinit var title: String
+  lateinit var author: String
+  lateinit var price: BigDecimal
+
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
+    other as Book
+
+    return id == other.id
+  }
+
+  override fun hashCode(): Int = id.hashCode()
+
+}
